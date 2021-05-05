@@ -7,7 +7,6 @@ import {
   View,
   StatusBar,
   ScrollView,
-  FlatList,
   TouchableHighlight,
 } from 'react-native';
 import { Header, Input } from 'react-native-elements';
@@ -26,7 +25,6 @@ export default class Requester extends React.Component {
     requestStatus: '',
     docId: '',
     data: null,
-    showFlatList: false,
     userDocId:'',
     requestId:'',
     currencyCode:'',
@@ -76,7 +74,7 @@ export default class Requester extends React.Component {
   updateBookRequestStatus = () => {
     //updating the book status after receiving the book
     firebase.firestore().collection('Requests').doc(this.state.docId).update({
-      book_status: 'received',
+      requestStatus: 'received',
     });
 
     //getting the  doc id to update the users doc
@@ -157,7 +155,8 @@ export default class Requester extends React.Component {
           uniqueId: uniqueId,
           itemName: itemName,
           description: description,
-          itemValue: this.state.itemValue
+          itemValue: this.state.itemValue,
+          requestStatus:'not received'
         });
         firebase.firestore().collection('Users').doc(this.state.userDocId).update({
           isRequestActive:true

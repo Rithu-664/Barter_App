@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import firebase from 'firebase';
-import { ListItem } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 import MyHeader from '../components/MyHeader';
 
 export default class MyDonations extends React.Component{
@@ -88,26 +88,50 @@ export default class MyDonations extends React.Component{
       <View>
         
         <MyHeader navigation={this.props.navigation} title="My Donations"/>
-        <FlatList
+        {this.state.myDonations.length !== 0 ? (
+          <FlatList
           data={this.state.myDonations}
           renderItem={({ item }) => (
             <ListItem>
-              <ListItem.Content
-                style={{
-                  backgroundColor: '#f0f0f0',
-                  padding: 20,
-                  borderRadius: 20,
-                }}>
-                <ListItem.Title>{item.itemName}</ListItem.Title>
-              </ListItem.Content>
+                <ListItem.Content
+                  style={{
+                    backgroundColor: '#f0f0f0',
+                    padding: 20,
+                    borderRadius: 20,
+                  }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <View>
+                      <Avatar
+                        rounded
+                        icon={{ name: 'gifts', type: 'font-awesome-5' }}
+                        activeOpacity={0.7}
+                        source={{
+                          uri:
+                            'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                      <ListItem.Title>{item.itemName}</ListItem.Title>
+                    </View>
+                  </View>
+                </ListItem.Content>
 
-              <TouchableOpacity onPress={() => this.sendBook(item)}>
+                <TouchableOpacity
+                onPress={() =>
+                  this.sendBook(item)
+                }>
                 <Text>Send</Text>
               </TouchableOpacity>
-            </ListItem>
+              </ListItem>
           )}
           keyExtractor={(item,index) => index.toString()}
         />
+        ) : (
+          <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <Text>You haven't donated yet. Donate to get started!</Text>
+          </View>
+        )}
       </View>
     )
   }

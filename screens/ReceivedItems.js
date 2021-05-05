@@ -29,7 +29,8 @@ export default class ReceivedItems extends Component {
                 return (
                         <View>
                                 <MyHeader title="Received Items" navigation={this.props.navigation} />
-                                <FlatList
+                                {this.state.receivedItems.length !== 0 ? (
+                                        <FlatList
                                         data={this.state.receivedItems}
                                         renderItem={({item}) => (
                                                 <ListItem>
@@ -64,6 +65,9 @@ export default class ReceivedItems extends Component {
                                         )}
                                         keyExtractor={(item,index) => index.toString()}
                                 />
+                                ): (<View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                                        <Text>You haven't received an items yet. Check here again after a barter donates you something</Text>
+                                </View>) }
                         </View>
                 )
         }

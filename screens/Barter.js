@@ -26,6 +26,7 @@ export default class Barter extends React.Component {
     this.request =  firebase
                   .firestore()
                   .collection('Requests')
+                  .where('requestStatus','==','not received')
                   .onSnapshot((snapshot) => {
                     var docData = snapshot.docs.map((document) => document.data());
                     this.setState({
@@ -40,20 +41,36 @@ export default class Barter extends React.Component {
         <StatusBar hidden />
         
         <MyHeader navigation={this.props.navigation} title="Barter"/>
-        <FlatList
+        {this.state.requests.length !== 0 ? (
+          <FlatList
           data={this.state.requests}
           renderItem={({ item }) => (
             <ListItem>
-              <ListItem.Content
-                style={{
-                  backgroundColor: '#f0f0f0',
-                  padding: 20,
-                  borderRadius: 20,
-                }}>
-                <ListItem.Title>{item.itemName}</ListItem.Title>
-              </ListItem.Content>
+                <ListItem.Content
+                  style={{
+                    backgroundColor: '#f0f0f0',
+                    padding: 20,
+                    borderRadius: 20,
+                  }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <View>
+                      <Avatar
+                        rounded
+                        icon={{ name: 'gifts', type: 'font-awesome-5' }}
+                        activeOpacity={0.7}
+                        source={{
+                          uri:
+                            'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: 'column', marginLeft: 20 }}>
+                      <ListItem.Title>{item.itemName}</ListItem.Title>
+                    </View>
+                  </View>
+                </ListItem.Content>
 
-              <TouchableOpacity
+                <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate('RequestDetails', {
                     details: item,
@@ -61,10 +78,13 @@ export default class Barter extends React.Component {
                 }>
                 <Text>Exchange</Text>
               </TouchableOpacity>
-            </ListItem>
+              </ListItem>
           )}
           keyExtractor={(item,index) => index.toString()}
         />
+        ) : (<View style={{flex:1,justifyContent:'center'}}>
+          <Text>There are no requests yet</Text>
+        </View>)}
       </View>
     );
   }
