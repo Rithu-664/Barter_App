@@ -1,128 +1,119 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Alert,
+  View,
+  StatusBar,
+  StyleSheet
+} from 'react-native';
+import { Header } from 'react-native-elements';
 import firebase from 'firebase';
-import db from '../config';
-import { Card } from 'react-native-elements';
+import MyHeader from '../components/MyHeader';
 
-export default class RequestDetails extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      requestId: null,
-      requesterId: null,
-      userId: null,
-      itemName: null,
-      description: null,
-      requesterName: '',
-      phoneNumber: '',
-      address: '',
-      requestDocumentId: '',
-    };
-  }
-
-  getUserDetails = async () => {
-    var email = this.props.navigation.getParam('details').userId;
-    await firebase
-      .firestore()
-      .collection('Users')
-      .where('email_id', '==', email)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          var data = doc.data();
-          var docId = doc.id;
-          this.setState({
-            requesterName: data.name,
-            address: data.address,
-            phoneNumber: data.phoneNumber,
-          });
-        });
-      });
+export default class Requester extends React.Component {
+  state = {
+    itemName: '',
+    description: '',
+    uid: firebase.auth().currentUser.email,
   };
 
-  addNotification = () => {
-    
-  }
+  onTapRequest = async (itemName, description) => {
+    var uniqueId = Math.random().toString(36).substring(10);
 
-  getUserId = async () => {
-    var email = this.props.navigation.getParam('details').userId;
-    await firebase
-      .firestore()
-      .collection('Requests')
-      .where('userId', '==', email)
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          var data = doc.data();
-          var docId = doc.id;
-          this.setState({ requestDocumentId: docId });
+    if (this.state.itemName === '' || this.state.description === '') {
+      return Alert.alert('Error processing request', 'Enter valid info');
+    } else {
+      try {
+        firebase.firestore().collection('Requests').add({
+          userId: this.state.uid,
+          uniqueId: uniqueId,
+          itemName: itemName,
+          description: description,
         });
-      });
-  };
-
-  componentDidMount() {
-    this.setState({
-      requestId: this.props.navigation.getParam('details').requestId,
-      requesterId: this.props.navigation.getParam('details').userId,
-      userId: firebase.auth().currentUser.email,
-      itemName: this.props.navigation.getParam('details').itemName,
-      description: this.props.navigation.getParam('details').description,
-    });
-    this.getUserDetails();
-    this.getUserId();
-  }
-
-  updateRequestStatus = async () => {
-    await this.getUserDetails();
-    var requestRef = await firebase
-      .firestore()
-      .collection('all_donations')
-      .where('requestId', '==', this.state.requestId)
-      .get();
-    console.log(requestRef.docs.length);
-    console.log('requesterName' + this.state.requesterName);
-
-    if (requestRef.docs.length === 0) {
-      await firebase.firestore().collection('all_donations').add({
-        itemName: this.state.itemName,
-        requestId: this.state.requestId,
-        requestedBy: this.state.requesterName,
-        barterId: this.state.userId,
-        requestStatus: 'barter interested',
-      });
+      } catch (error) {
+        alert(error.message);
+      }
     }
+
+    this.setState({
+      itemName: '',
+      description: '',
+    });
+    return alert('Request added');
   };
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Card containerStyle={{ marginTop: 150 }}>
-          <Card.Title>Item Information</Card.Title>
-          <Card>
-            <Text>Name: {this.state.itemName}</Text>
-            <Text>Description of the request: {this.state.description}</Text>
-          </Card>
-        </Card>
-        <Card>
-          <Card.Title>Requester Information</Card.Title>
-          <Text>Requester name: {this.state.requesterName}</Text>
-          <Text>Requester phoneNumber: {this.state.phoneNumber}</Text>
-          <Text>Requester address: {this.state.address}</Text>
-        </Card>
-        <View style={{ marginHorizontal: 150 }}>
-          {this.state.requesterId !== this.state.userId ? (
-            <TouchableOpacity
-              style={{ marginTop: 10 }}
-              onPress={() => {
-                this.updateRequestStatus()
-                this.props.navigation.navigate('MyDonations');
-              }}>
-              <Text>I want to donate</Text>
-            </TouchableOpacity>
-          ) : null}
+      <KeyboardAvoidingView>
+        <StatusBar hidden />
+        <MyHeader navigation={this.props.navigation} title="Request goods"/>
+
+        <View style={{ alignItems: 'center', marginTop: 100 }}>
+          <TextInput
+            placeholder="Name of the item"
+            value={this.state.itemName}
+            onChangeText={(text) => {
+              this.setState({ itemName: text });
+            }}
+            style={{
+              width: '75%',
+              height: 50,
+              alignSelf: 'center',
+              borderColor: '#8022d9',
+              borderRadius: 10,
+              borderWidth: 1,
+              marginTop: 20,
+              padding: 10,
+              fontSize:20
+            }}
+          />
+
+          <TextInput
+            placeholder="Description"
+            value={this.state.description}
+            onChangeText={(text) => {
+              this.setState({ description: text });
+            }}
+            style={{
+              width: '75%',
+              height: 150,
+              alignSelf: 'center',
+              borderColor: '#8022d9',
+              borderRadius: 10,
+              borderWidth: 1,
+              marginTop: 20,
+              padding: 10,
+              fontSize:20
+            }}
+            multiline={true}
+            numberOfLines={25}
+          />
+
+          <TouchableOpacity
+            style={{
+              width: 200,
+              height: 60,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderWidth: 1,
+              borderRadius: 30,
+              marginTop: 30,
+              alignSelf: 'center',
+              backgroundColor: '#22A4B3',
+            }}
+            onPress={() =>
+              this.onTapRequest(this.state.itemName, this.state.description)
+            }>
+            <Text style={{ color: 'white', fontWeight: '600', fontSize: 20 }}>
+              Request
+            </Text>
+          </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
+

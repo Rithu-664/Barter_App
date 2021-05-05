@@ -6,6 +6,7 @@ import { AppTabNavigator } from './AppTabNavigator';
 import { useWindowDimensions } from 'react-native';
 import SettingsScreen from '../screens/Settings';
 import MyDonations from '../screens/MyDonations'
+import ReceivedItems from '../screens/ReceivedItems';
  
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -20,7 +21,16 @@ const DrawerNavigator = createDrawerNavigator(
     },
     MyDonations: {
       screen: MyDonations,
+      navigationOptions: {
+        title:'My Donations'
+      }
     },
+    ReceivedItems: {
+      screen: ReceivedItems,
+      navigationOptions: {
+        title:'Received Items'
+      }
+    }
   },
 
   {
