@@ -11,6 +11,7 @@ import Login from './screens/Login'
 import Barter from './screens/Barter'
 import Requester from './screens/Requester'
 import Home from './screens/Home'
+import Notifications from './screens/Notifications';
 
 export default function App() {
   return (
@@ -23,7 +24,8 @@ const AppNavigator = createSwitchNavigator({
   Barter:{screen:Barter},
   Requester:{screen:Requester},
   DrawerNavigator:{screen:DrawerNavigator},
-  AppStackNavigator:{screen:AppStackNavigator}
+  AppStackNavigator:{screen:AppStackNavigator},
+  Notifications:{screen:Notifications}
 })
 
 const AppContainer = createAppContainer(AppNavigator)

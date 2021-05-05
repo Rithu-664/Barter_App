@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { ListItem,Avatar } from 'react-native-elements';
 import firebase from 'firebase';
+import MyHeader from '../components/MyHeader';
 
 export default class Barter extends React.Component {
   constructor() {
@@ -38,6 +39,8 @@ export default class Barter extends React.Component {
     return (
       <View>
         <StatusBar hidden />
+        
+        <MyHeader navigation={this.props.navigation} title="Barter"/>
         <FlatList
           data={this.state.requests}
           renderItem={({ item }) => (

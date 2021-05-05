@@ -12,6 +12,7 @@ import { Component } from 'react';
 import firebase from 'firebase';
 import db from '../config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import MyHeader from '../components/MyHeader';
 export default class SettingsScreen extends React.Component {
   constructor() {
     super();
@@ -70,17 +71,8 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <Header
-          centerComponent={{
-            text: 'Settings',
-            style: {
-              color: 'black',
-              fontWeight: 'Bold',
-              fontSize: 25,
-            },
-          }}
-          backgroundColor="#DAF7A6"
-        />
+        
+        <MyHeader navigation={this.props.navigation} title="Settings"/>
         <TextInput
           style={style.input}
           placeholder="Username"

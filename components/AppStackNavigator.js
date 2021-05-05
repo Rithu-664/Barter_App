@@ -8,6 +8,7 @@ import { useWindowDimensions } from 'react-native';
 import RequestDetails from '../screens/RequestDetails';
 import DrawerNavigator from './DrawerNavigator';
 import MyDonations from '../screens/MyDonations'
+import Notifications from '../screens/Notifications';
 
 export const AppStackNavigator = createStackNavigator(
   {

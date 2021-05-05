@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import firebase from 'firebase';
 import { ListItem } from 'react-native-elements';
+import MyHeader from '../components/MyHeader';
 
 export default class MyDonations extends React.Component{
   state = {
@@ -84,7 +85,10 @@ export default class MyDonations extends React.Component{
 
   render() {
     return (
-      <FlatList
+      <View>
+        
+        <MyHeader navigation={this.props.navigation} title="My Donations"/>
+        <FlatList
           data={this.state.myDonations}
           renderItem={({ item }) => (
             <ListItem>
@@ -104,6 +108,7 @@ export default class MyDonations extends React.Component{
           )}
           keyExtractor={(item,index) => index.toString()}
         />
+      </View>
     )
   }
 }

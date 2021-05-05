@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Header } from 'react-native-elements';
 import firebase from 'firebase';
+import MyHeader from '../components/MyHeader';
 
 export default class Requester extends React.Component {
   state = {
@@ -48,17 +49,7 @@ export default class Requester extends React.Component {
     return (
       <KeyboardAvoidingView>
         <StatusBar hidden />
-        <Header
-          centerComponent={{
-            text: 'Request Goods',
-            style: {
-              color: 'white',
-              fontSize: 25,
-              fontWeight: 'bold',
-            },
-          }}
-          backgroundColor="#33CCBA"
-        />
+        <MyHeader navigation={this.props.navigation} title="Request goods"/>
 
         <View style={{ alignItems: 'center', marginTop: 100 }}>
           <TextInput
