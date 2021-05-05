@@ -96,10 +96,10 @@ export default class Requester extends React.Component {
   };
 
   receivedItems=(itemName)=>{
-    var userName = this.state.userName
+    var userEmail = this.state.uid
     var requestId = this.state.requestId
-    db.collection('received_items').add({
-        "userName": userName,
+    firebase.firestore().collection('received_items').add({
+        "userEmail": userEmail,
         "itemName":itemName,
         "requestId"  : requestId,
     })
@@ -171,7 +171,6 @@ export default class Requester extends React.Component {
       itemName: '',
       description: '',
     });
-    console.log('request added');
     return alert('Request added');
   };
 
@@ -183,7 +182,6 @@ export default class Requester extends React.Component {
       var currencyCode = this.state.currencyCode
       var currency = resData.rates.INR
       var value = 69 / currency
-      console.log("value: " + value)
     })
   }
 

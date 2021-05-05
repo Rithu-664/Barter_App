@@ -35,7 +35,6 @@ export default class Barter extends React.Component {
   };
 
   render() {
-    console.log("requests: " +this.state.requests)
     return (
       <View>
         <StatusBar hidden />

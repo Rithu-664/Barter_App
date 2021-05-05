@@ -92,7 +92,6 @@ export default class SideBarMenu extends Component {
   };
 
   render() {
-    console.log('username: ' + this.state.userName);
     return (
       <View style={{ flex: 1 }}>
         <View

@@ -39,11 +39,8 @@ export default class RequestDetails extends React.Component {
             address: data.address,
             phoneNumber: data.phoneNumber,
           });
-          console.log('data: ' + doc);
         });
       });
-
-    console.log('requesterName: ' + this.state.requesterName);
   };
 
   getUserId = async () => {
@@ -77,8 +74,6 @@ export default class RequestDetails extends React.Component {
   updateBookStatus = async (name) => {
    await  this.getUserDetails()
     var requestRef= await firebase.firestore().collection("all_donations").where("uniqueId","==",this.state.uniqueId).get()
-    console.log(requestRef.docs.length)
-    console.log("requesterName"+this.state.requesterName)
   
     if(requestRef.docs.length===0){
     await firebase.firestore().collection('all_donations').add({
@@ -105,7 +100,6 @@ export default class RequestDetails extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <View style={{ flex: 1, backgroundColor:'white'}}>
         <Header centerComponent={{
