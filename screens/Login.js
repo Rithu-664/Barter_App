@@ -36,6 +36,7 @@ export default class Login extends React.Component {
     email: 'jsssjin@gmail.com',
     password: 'password',
     showPasswordSignUp: '',
+    currencyCode:''
   };
 
   showModal = () => {
@@ -118,6 +119,19 @@ export default class Login extends React.Component {
                 autoCapitalize={false}
                 keyboardType="numeric"
               />
+              <TextInput
+                style={styles.formTextInput}
+                placeholder="Currency Code"
+                maxLength={10}
+                onChangeText={(text) => {
+                  this.setState({
+                    currencyCode: text,
+                  });
+                }}
+                keyboardAppearance="dark"
+                autoCapitalize={true}
+                keyboardType="numeric"
+              />
 
               <TextInput
                 style={styles.formTextInput}
@@ -178,6 +192,7 @@ export default class Login extends React.Component {
           phoneNumber: this.state.phoneNumber,
           address: this.state.address,
           email_id: this.state.email,
+          currencyCode:this.state.currencyCode
         });
 
         this.props.navigation.navigate('Home');

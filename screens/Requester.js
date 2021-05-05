@@ -29,12 +29,15 @@ export default class Requester extends React.Component {
     data: null,
     showFlatList: false,
     userDocId:'',
-    requestId:''
+    requestId:'',
+    currencyCode:'',
+    itemValue:''
   };
 
   async componentDidMount() {
     this.getIsRequestActive();
     this.getRequest();
+    this.getData()
   }
 
   getIsRequestActive = async () => {
@@ -155,6 +158,7 @@ export default class Requester extends React.Component {
           uniqueId: uniqueId,
           itemName: itemName,
           description: description,
+          itemValue: this.state.itemValue
         });
         firebase.firestore().collection('Users').doc(this.state.userDocId).update({
           isRequestActive:true
@@ -171,6 +175,18 @@ export default class Requester extends React.Component {
     console.log('request added');
     return alert('Request added');
   };
+
+  getData(){
+    fetch('http://data.fixer.io/api/latest?access_key=1f7dd48123a05ae588283b5e13fae944&format=1')
+    .then(res => {
+      return res.json()
+    }).then(resData => {
+      var currencyCode = this.state.currencyCode
+      var currency = resData.rates.INR
+      var value = 69 / currency
+      console.log("value: " + value)
+    })
+  }
 
   render() {
     if (this.state.isRequestActive === false) {
@@ -218,6 +234,27 @@ export default class Requester extends React.Component {
               multiline={true}
               numberOfLines={25}
             />
+
+          <TextInput
+            style={{
+              width: '75%',
+              height: 35,
+              alignSelf: 'center',
+              borderColor: '#8022d9',
+              borderRadius: 10,
+              borderWidth: 1,
+              marginTop: 20,
+              padding: 10,
+            }}
+            placeholder ={"Item Value"}
+            maxLength ={8}
+            onChangeText={(text)=>{
+              this.setState({
+                itemValue: text
+              })
+            }}
+            value={this.state.itemValue}
+          />
 
             <TouchableOpacity
               style={{
