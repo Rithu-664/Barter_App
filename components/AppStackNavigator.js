@@ -9,9 +9,16 @@ import RequestDetails from '../screens/RequestDetails';
 import DrawerNavigator from './DrawerNavigator';
 import MyDonations from '../screens/MyDonations'
 import Notifications from '../screens/Notifications';
+import Home from '../screens/Home';
 
 export const AppStackNavigator = createStackNavigator(
   {
+    Welcome:{
+      screen: Home,
+      navigationOptions:{
+        headerShown:false
+      }
+    },
     Barter: {
       screen: Barter,
       navigationOptions:{
@@ -32,6 +39,6 @@ export const AppStackNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'Barter',
+    initialRouteName: 'Welcome',
   }
 );

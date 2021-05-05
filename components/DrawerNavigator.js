@@ -11,10 +11,13 @@ import ReceivedItems from '../screens/ReceivedItems';
 const DrawerNavigator = createDrawerNavigator(
   {
     Home: {
-      screen: AppTabNavigator,
+      screen: Home,
     },
     Welcome: {
-      screen: Home,
+      screen: AppTabNavigator,
+      navigationOptions:{
+        title:'Donate & Request'
+      }
     },
     Settings: {
       screen: SettingsScreen,
@@ -37,7 +40,7 @@ const DrawerNavigator = createDrawerNavigator(
     contentComponent: SideBarMenu,
   },
   {
-    initialRouteName: 'Welcome',
+    initialRouteName: 'Home',
   }
 );
 

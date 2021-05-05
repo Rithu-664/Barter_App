@@ -28,7 +28,8 @@ export default class Requester extends React.Component {
     docId: '',
     data: null,
     showFlatList: false,
-    userDocId:''
+    userDocId:'',
+    requestId:''
   };
 
   async componentDidMount() {
@@ -92,10 +93,13 @@ export default class Requester extends React.Component {
       });
   };
 
-  receivedItems = () => {
-    firebase.firestore().collection('received_books').add({
-      itemName:this.state.itemName,
-      user:this.state.uid
+  receivedItems=(itemName)=>{
+    var userName = this.state.userName
+    var requestId = this.state.requestId
+    db.collection('received_items').add({
+        "userName": userName,
+        "itemName":itemName,
+        "requestId"  : requestId,
     })
   }
 
@@ -138,6 +142,9 @@ export default class Requester extends React.Component {
 
   onTapRequest = async (itemName, description) => {
     var uniqueId = Math.random().toString(36).substring(10);
+    this.setState({
+      requestId: uniqueId
+    })
 
     if (this.state.itemName === '' || this.state.description === '') {
       return Alert.alert('Error processing request', 'Enter valid info');
@@ -274,7 +281,7 @@ export default class Requester extends React.Component {
             onPress={() => {
               this.sendNotification();
               this.updateBookRequestStatus();
-              this.receivedItems();
+              this.receivedItems(this.state.requestedItemName);
             }}>
             <Text>I recieved the item </Text>
           </TouchableOpacity>

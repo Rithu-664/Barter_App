@@ -21,6 +21,7 @@ export default function App() {
 
 const AppNavigator = createSwitchNavigator({
   Login:{screen:Login},
+  Welcome:{screen: Home},
   Barter:{screen:Barter},
   Requester:{screen:Requester},
   DrawerNavigator:{screen:DrawerNavigator},
