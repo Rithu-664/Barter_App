@@ -7,31 +7,37 @@ import { useWindowDimensions } from 'react-native';
 import SettingsScreen from '../screens/Settings';
 import MyDonations from '../screens/MyDonations'
 import ReceivedItems from '../screens/ReceivedItems';
+import { Icon } from 'react-native-elements';
  
 const DrawerNavigator = createDrawerNavigator(
   {
-    Home: {
+    Welcome: {
       screen: Home,
     },
-    Welcome: {
+    Home: {
       screen: AppTabNavigator,
       navigationOptions:{
-        title:'Donate & Request'
+        drawerIcon: <Icon name="home" type="font-awesome" />
       }
     },
     Settings: {
       screen: SettingsScreen,
+      navigationOptions:{
+        drawerIcon: <Icon name="settings-sharp" type="ionicon" />
+      }
     },
     MyDonations: {
       screen: MyDonations,
       navigationOptions: {
-        title:'My Donations'
+        title:'My Donations',
+        drawerIcon: <Icon name="gifts" type="font-awesome-5" />
       }
     },
     ReceivedItems: {
       screen: ReceivedItems,
       navigationOptions: {
-        title:'Received Items'
+        title:'Received Items',
+        drawerIcon: <Icon name="gift" type="font-awesome-5" />
       }
     }
   },

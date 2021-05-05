@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import db from '../config';
 import { Card, Header } from 'react-native-elements';
 import MyHeader from '../components/MyHeader';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class RequestDetails extends React.Component {
   constructor() {
@@ -106,22 +107,22 @@ export default class RequestDetails extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1, backgroundColor:'white'}}>
         <Header centerComponent={{
           text: this.state.itemName,
-          style: { fontSize: 30, fontWeight: '200', color: '#8022d9' },
+          style: { fontSize: RFValue(30), fontWeight: '200', color: '#8022d9' },
         }}
         leftComponent={{icon:'arrow-back',onPress:() => this.props.navigation.goBack()}}
         backgroundColor="#D6DEFF"
         />
-        <Card containerStyle={{marginTop:150}}>
+        <Card containerStyle={{marginTop:150,backgroundColor:'#F78FB3'}}>
           <Card.Title>Request Information</Card.Title>
-          <Card>
+          <Card containerStyle={{backgroundColor:'#f8a5c2'}}>
             <Text>Name: {this.state.itemName}</Text>
             <Text>description for the request: {this.state.description}</Text>
           </Card> 
         </Card>
-        <Card>
+        <Card containerStyle={{backgroundColor:'#778beb'}}>
           <Card.Title>Requester Information</Card.Title>
           <Text>Requester name: {this.state.requesterName}</Text>
           <Text>Requester phoneNumber: {this.state.phoneNumber}</Text>

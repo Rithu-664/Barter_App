@@ -3,16 +3,17 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
   StyleSheet,
   Alert,
+  ScrollView,
 } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Input } from 'react-native-elements';
 import { Component } from 'react';
 import firebase from 'firebase';
 import db from '../config';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import MyHeader from '../components/MyHeader';
+import { RFValue } from 'react-native-responsive-fontsize';
 export default class SettingsScreen extends React.Component {
   constructor() {
     super();
@@ -73,8 +74,8 @@ export default class SettingsScreen extends React.Component {
       <View style={{ flex: 1 }}>
         
         <MyHeader navigation={this.props.navigation} title="Settings"/>
-        <TextInput
-          style={style.input}
+        <ScrollView style={{marginHorizontal:30}}>
+        <Input
           placeholder="Username"
           value={this.state.name}
           keyboardAppearance="dark"
@@ -82,8 +83,7 @@ export default class SettingsScreen extends React.Component {
             this.setState({ name: text });
           }}
         />
-        <TextInput
-          style={style.input}
+        <Input
           placeholder="Address"
           multiline={true}
           numberOfLines={5}
@@ -93,8 +93,7 @@ export default class SettingsScreen extends React.Component {
             this.setState({ address: text });
           }}
         />
-        <TextInput
-          style={style.input}
+        <Input
           placeholder="Phone number"
           value={this.state.phoneNumber}
           keyboardType="numeric"
@@ -104,7 +103,6 @@ export default class SettingsScreen extends React.Component {
             this.setState({ phoneNumber: text });
           }}
         />
-
         <TouchableOpacity
           style={{
             padding: 10,
@@ -115,11 +113,14 @@ export default class SettingsScreen extends React.Component {
           }}
           onPress={() => this.updateUserDetails()}>
           <Text
-            style={{ color: 'white', fontSize: 18 }}>
+            style={{ color: 'white', fontSize: RFValue(18) }}>
             {' '}
             Update
           </Text>
         </TouchableOpacity>
+        </ScrollView>
+
+        
       </View>
     );
   }

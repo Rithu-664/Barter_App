@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  TextInput,
   Text,
   TouchableOpacity,
   Platform,
@@ -12,7 +11,7 @@ import {
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-import { Header, Overlay } from 'react-native-elements';
+import { Header, Input } from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PacmanIndicator } from 'react-native-indicators';
 import { Rating, AirbnbRating, CheckBox } from 'react-native-elements';
@@ -21,6 +20,7 @@ import BarterAnimation from '../components/BarterAnimation';
 
 import db from '../config';
 import firebase from 'firebase';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 export default class Login extends React.Component {
   state = {
@@ -51,15 +51,14 @@ export default class Login extends React.Component {
               style={{
                 alignSelf: 'center',
                 marginTop: 50,
-                fontSize: 30,
+                fontSize: RFValue(30),
                 fontWeight: 'bold',
               }}>
               Sign up to get started
             </Text>
 
-            <ScrollView style={{ marginTop: 20 }}>
-              <TextInput
-                style={styles.formTextInput}
+            <ScrollView style={{ marginTop: 20, marginHorizontal: 60 }}>
+              <Input
                 placeholder={'Name'}
                 maxLength={20}
                 onChangeText={(text) => {
@@ -70,8 +69,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
               />
 
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder={'Email ID'}
                 onChangeText={(text) => {
                   this.setState({
@@ -82,8 +80,7 @@ export default class Login extends React.Component {
                 autoCapitalize={false}
                 keyboardType="email-address"
               />
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder="Address"
                 maxLength={20}
                 onChangeText={(text) => {
@@ -94,8 +91,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 autoCapitalize={false}
               />
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder="Age"
                 maxLength={2}
                 onChangeText={(text) => {
@@ -106,8 +102,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 autoCapitalize={false}
               />
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder="Phone number"
                 maxLength={10}
                 onChangeText={(text) => {
@@ -119,8 +114,7 @@ export default class Login extends React.Component {
                 autoCapitalize={false}
                 keyboardType="numeric"
               />
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder="Currency Code"
                 maxLength={10}
                 onChangeText={(text) => {
@@ -133,8 +127,7 @@ export default class Login extends React.Component {
                 keyboardType="numeric"
               />
 
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder={'Password'}
                 secureTextEntry={true}
                 onChangeText={(text) => {
@@ -145,8 +138,7 @@ export default class Login extends React.Component {
                 keyboardAppearance="dark"
                 autoCapitalize={false}
               />
-              <TextInput
-                style={styles.formTextInput}
+              <Input
                 placeholder={'Confirm Password'}
                 secureTextEntry={true}
                 onChangeText={(text) => {
@@ -237,7 +229,7 @@ export default class Login extends React.Component {
             text: 'Barter',
             style: {
               color: 'white',
-              fontSize: 25,
+              fontSize: RFValue(25),
               fontWeight: 'bold',
             },
           }}
@@ -249,15 +241,9 @@ export default class Login extends React.Component {
         <View>{this.showModal()}</View>
 
         <View style={{ justifyContent: 'center', marginTop: 100 }}>
-          <TextInput
+          <Input
             placeholder="Email address"
-            style={{
-              margin: 10,
-              borderWidth: 1.3,
-              padding: 10,
-              borderRadius: 30,
-              paddingHorizontal: 15,
-            }}
+            containerStyle={{paddingHorizontal:30}}
             keyboardType="email-address"
             keyboardAppearance="dark"
             autoCapitalize={false}
@@ -265,15 +251,9 @@ export default class Login extends React.Component {
             value={this.state.email}
             onChangeText={(email) => this.setState({ email: email })}
           />
-          <TextInput
+          <Input
             placeholder="Password"
-            style={{
-              margin: 10,
-              borderWidth: 1.3,
-              padding: 10,
-              borderRadius: 30,
-              paddingHorizontal: 15,
-            }}
+            containerStyle={{paddingHorizontal:30}}
             value={this.state.password}
             keyboardAppearance="dark"
             onChangeText={(password) => this.setState({ password: password })}
@@ -309,7 +289,7 @@ export default class Login extends React.Component {
             <PacmanIndicator size={25} color="white" />
           ) : (
             <Text
-              style={{ color: 'white', fontSize: 18 }}>
+              style={{ color: 'white', fontSize: RFValue(18) }}>
               Sign up
             </Text>
           )}
@@ -327,7 +307,7 @@ export default class Login extends React.Component {
             <ActivityIndicator size="small" color="white" />
           ) : (
             <Text
-              style={{ color: 'white', fontSize: 18, }}>
+              style={{ color: 'white', fontSize: RFValue(18), }}>
               Sign in
             </Text>
           )}
@@ -338,17 +318,6 @@ export default class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  formTextInput: {
-    width: '75%',
-    height: 35,
-    alignSelf: 'center',
-    borderColor: '#8022d9',
-    borderRadius: 10,
-    borderWidth: 1,
-    marginTop: 20,
-    padding: 10,
-    paddingBottom: 10,
-  },
   cancelButton: {
     width: 250,
     height: 40,

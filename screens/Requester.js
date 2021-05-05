@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   KeyboardAvoidingView,
-  TextInput,
   TouchableOpacity,
   Text,
   Alert,
@@ -11,7 +10,7 @@ import {
   FlatList,
   TouchableHighlight,
 } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Input } from 'react-native-elements';
 import firebase from 'firebase';
 import MyHeader from '../components/MyHeader';
 import { ListItem, Divider } from 'react-native-elements';
@@ -196,65 +195,31 @@ export default class Requester extends React.Component {
 
           <MyHeader title="Request an item" navigation={this.props.navigation} />
 
-          <View style={{ flex: 1, marginTop: 200 }}>
-            <TextInput
+          <ScrollView style={{marginTop:200,marginHorizontal:30}}>
+            <Input
               placeholder="Name of the item"
               value={this.state.itemName}
               onChangeText={(text) => {
-                this.setState({ itemName: text });
-              }}
-              style={{
-                width: '75%',
-                height: 35,
-                alignSelf: 'center',
-                borderColor: '#8022d9',
-                borderRadius: 10,
-                borderWidth: 1,
-                marginTop: 20,
-                padding: 10,
+                this.setState({itemName: text})
               }}
             />
-
-            <TextInput
-              placeholder="Describe why you want the item"
+            <Input
+              placeholder="Description"
               value={this.state.description}
               onChangeText={(text) => {
-                this.setState({ description: text });
-              }}
-              style={{
-                width: '75%',
-                height: 150,
-                alignSelf: 'center',
-                borderColor: '#8022d9',
-                borderRadius: 10,
-                borderWidth: 1,
-                marginTop: 20,
-                padding: 10,
+                this.setState({description: text})
               }}
               multiline={true}
               numberOfLines={25}
             />
-
-          <TextInput
-            style={{
-              width: '75%',
-              height: 35,
-              alignSelf: 'center',
-              borderColor: '#8022d9',
-              borderRadius: 10,
-              borderWidth: 1,
-              marginTop: 20,
-              padding: 10,
-            }}
-            placeholder ={"Item Value"}
-            maxLength ={8}
-            onChangeText={(text)=>{
-              this.setState({
-                itemValue: text
-              })
-            }}
-            value={this.state.itemValue}
-          />
+            <Input
+              placeholder="Item value"
+              value={this.state.itemValue}
+              onChangeText={(text) => {
+                this.setState({itemValue: text})
+              }}
+              maxLength={8}
+            />
 
             <TouchableOpacity
               style={{
@@ -272,7 +237,7 @@ export default class Requester extends React.Component {
               }>
               <Text>Request</Text>
             </TouchableOpacity>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       );
     } else {

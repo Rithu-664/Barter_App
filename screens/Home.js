@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 export default class Home extends React.Component {
   render() {
@@ -43,12 +44,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#75F0E3',
   },
   barterButtonText: {
-    fontSize: 25,
+    fontSize: RFValue(25),
     color: 'white',
     fontWeight: '600',
   },
   requesterButtonText: {
-    fontSize: 25,
+    fontSize: RFValue(25),
     color: 'black',
     fontWeight: '600',
   },

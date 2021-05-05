@@ -13,6 +13,7 @@ import {FontAwesome} from '@expo/vector-icons'
 import firebase from 'firebase';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import {RFValue} from 'react-native-responsive-fontsize'
 
 export default class SideBarMenu extends Component {
   constructor() {
@@ -109,7 +110,7 @@ export default class SideBarMenu extends Component {
           />
 
           <View style={{ marginLeft: 5, width: '75%' }}>
-            <Text style={{ fontWeight: '200', fontSize: 25 }}>
+            <Text style={{ fontWeight: '200', fontSize: RFValue(25) }}>
               {'Welcome back ' + this.state.userName}
             </Text>
           </View>
